@@ -35,4 +35,20 @@ class ModHelloWorldHelper
       // Return the Hello
       return $result;
     }
+    public static function getTanksAjax() {
+		// Obtain a database connection
+      $db = JFactory::getDbo();
+      // Retrieve the shout
+      $query = $db->getQuery(true)
+          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana')))
+          ->from($db->quoteName('heros'))
+		  ->where($db->quoteName('role') . 'LIKE' . $db->quote('%Танк%'));
+      // Prepare the query
+      $db->setQuery($query);
+      // Load the row.
+      $result = $db->loadRowList();
+      // Return the Hello
+      return 'Привет мир!';//$result;
+
+	}
 }
