@@ -35,7 +35,8 @@ class ModHelloWorldHelper
       // Return the Hello
       return $result;
     }
-    public static function getTanksAjax() {
+
+	public static function getAjax() {
 		// Obtain a database connection
       $db = JFactory::getDbo();
       // Retrieve the shout
@@ -46,9 +47,9 @@ class ModHelloWorldHelper
       // Prepare the query
       $db->setQuery($query);
       // Load the row.
-      $result = $db->loadRowList();
+      $result = $db->loadObjectList();
       // Return the Hello
-      return 'Привет мир!';//$result;
-
+      return $result;
+		
 	}
 }
