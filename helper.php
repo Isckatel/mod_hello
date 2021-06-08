@@ -24,6 +24,7 @@ class ModHelloWorldHelper
     {
       // Obtain a database connection
       $db = JFactory::getDbo();
+	  JLog::add('Моё сообщение', JLog::ERROR, 'my-error-category');
       // Retrieve the shout
       $query = $db->getQuery(true)
           ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana')))
@@ -36,9 +37,13 @@ class ModHelloWorldHelper
       return $result;
     }
 
-	public static function getAjax() {
+	public static function getTankAjax() {
 		// Obtain a database connection
       $db = JFactory::getDbo();
+
+	  $axRole = JFactory::getApplication()->input->getInt('params');
+	  JLog::add('Параметр' . $axRole, JLog::ERROR, 'my-error-category');
+	  $str = 'Параметр:' . $axRole;
       // Retrieve the shout
       $query = $db->getQuery(true)
           ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana')))
@@ -50,6 +55,27 @@ class ModHelloWorldHelper
       $result = $db->loadObjectList();
       // Return the Hello
       return $result;
-		
+
 	}
+
+	public static function getFighterAjax() {
+		// Obtain a database connection
+      $db = JFactory::getDbo();
+	  $axRole = JFactory::getApplication()->input->getString('params');
+	  $str = '%' . $axRole . '%';
+	  JLog::add('Параметр' . $axRole, JLog::ERROR, 'my-error-category');
+      // Retrieve the shout
+      $query = $db->getQuery(true)
+          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana')))
+          ->from($db->quoteName('heros'))
+		  ->where($db->quoteName('role') . 'LIKE' . $db->quote($str));
+      // Prepare the query
+      $db->setQuery($query);
+      // Load the row.
+      $result = $db->loadObjectList();
+      // Return the Hello
+      return $result;
+
+	}
+
 }

@@ -5,7 +5,9 @@ defined('_JEXEC') or die; ?>
 <?php
 //переменнаяя hello находится в области видимости mod_helloworld.php
 if($hello)
-{
+	echo "<a class='tanks' data-role='Танки' href='#'>Танки</a>
+		  <a class='filter' data-role='Боец' href='#'>Бойцы</a>";
+{	//echo "<a class='tanks' href='http://heroml/index.php/geroi?option=com_ajax&module=helloworld&format=raw&method=getTanks'>Танки</a>";
     $rows = count($hello); // количество полученных строк
 	echo "
 	<style>

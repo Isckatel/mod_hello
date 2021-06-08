@@ -35,6 +35,7 @@ require JModuleHelper::getLayoutPath('mod_helloworld');
             'option': 'com_ajax', // Используем AJAX интерфейс
             'module': 'helloworld', // Название модуля без mod_
             'format': 'json', // Формат возвращаемых данных
+			'method': 'getTank', //Название метода
             'params': params // ID пользователя
         };
 
@@ -48,7 +49,6 @@ require JModuleHelper::getLayoutPath('mod_helloworld');
                 if (response.success && response.data) {
                     // Собираем список материалов
 					target.empty();
-
 					var result ='<tr><th>№</th><th>Имя</th><th>Роль</th><th>Здоровье</th><th>Мана</th><th>Атака</th><th>Скор. атаки</th><th>Скор. движ.</th><th>Физ. защита</th><th>Маг. защита</th><th>Восст. здоровья</th><th>Восст. маны</th></tr>'
 					$.each (response.data, function(index, value) {
 						result += '<tr> <td>' + (index + 1) + '</td>'
@@ -65,7 +65,6 @@ require JModuleHelper::getLayoutPath('mod_helloworld');
 						+'<td>'+ value.recoveryMana+'</td>'
 						+'</tr>';
                     });
-
 					target.html(result);
                     /*var result = '<ul>';
                     $.each (response.data, function(index, value) {
@@ -75,6 +74,71 @@ require JModuleHelper::getLayoutPath('mod_helloworld');
 
                     // Заполняем контейнер списком материалов
                     target.html(result).fadeIn(); */
+                }
+
+                // Есть успешный ответ сервера, но нет данных.
+                if (response.success && !response.data) {
+                    target.html('<?php echo JText::_('Нет данных'); ?>').addClass('text-error').fadeIn();
+                }
+
+                // Есть неуспешный ответ сервера и текст ошибки
+                if (!response.success && response.message) {
+                    target.html(response.message).addClass('text-error').fadeIn();
+                }
+
+            })
+            .fail(function() {
+                target.html('<?php echo JText::_('Произошла ошибка в процессе запроса.'); ?>').addClass('text-error').fadeIn();
+
+                // Скрываем контейнер через 3 секунды
+                setTimeout(function() {
+                    target.fadeOut();
+                }, 3000);
+            });
+    });
+
+	$('a.filter').on('click', function(event) {
+        event.preventDefault();
+        var params = $(this).data('role'); // Получаем ID пользователя
+        var target = $('.tabheros'); // Устанавливаем контейнер для вывода данных
+ //module=helloworld&format=raw&method=getTanks'>Танки
+        // Формируем параметры запроса
+        var request = {
+            'option': 'com_ajax', // Используем AJAX интерфейс
+            'module': 'helloworld', // Название модуля без mod_
+            'format': 'json', // Формат возвращаемых данных
+			'method': 'getFighter', //Название метода
+            'params': params // ID пользователя
+        };
+
+        // Посылаем AJAX запрос
+        $.ajax({
+            type: 'POST',
+            data: request,
+        })
+            .done(function(response) {
+                // Есть успешный ответ сервера и данные
+                if (response.success && response.data) {
+                    // Собираем список материалов
+					target.empty();
+					var result ='<tr><th>№</th><th>Имя</th><th>Роль</th><th>Здоровье</th><th>Мана</th><th>Атака</th><th>Скор. атаки</th><th>Скор. движ.</th><th>Физ. защита</th><th>Маг. защита</th><th>Восст. здоровья</th><th>Восст. маны</th></tr>'
+					$.each (response.data, function(index, value) {
+						result += '<tr> <td>' + (index + 1) + '</td>'
+						+'<td>' + value.name + '</td>'
+						+'<td>' + value.role + '</td>'
+						+'<td>'+ value.health+'</td>'
+						+'<td>'+ value.mana+'</td>'
+						+'<td>'+ value.attack+'</td>'
+						+'<td>'+ value.attackSpeed+'</td>'
+						+'<td>'+ value.speed+'</td>'
+						+'<td>'+ value.physicalProtection+'</td>'
+						+'<td>'+ value.magicProtection+'</td>'
+						+'<td>'+ value.recovery+'</td>'
+						+'<td>'+ value.recoveryMana+'</td>'
+						+'</tr>';
+                    });
+					target.html(result);
+
                 }
 
                 // Есть успешный ответ сервера, но нет данных.
