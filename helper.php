@@ -37,28 +37,7 @@ class ModHelloWorldHelper
       return $result;
     }
 
-	public static function getTankAjax() {
-		// Obtain a database connection
-      $db = JFactory::getDbo();
-
-	  $axRole = JFactory::getApplication()->input->getInt('params');
-	  JLog::add('Параметр' . $axRole, JLog::ERROR, 'my-error-category');
-	  $str = 'Параметр:' . $axRole;
-      // Retrieve the shout
-      $query = $db->getQuery(true)
-          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana')))
-          ->from($db->quoteName('heros'))
-		  ->where($db->quoteName('role') . 'LIKE' . $db->quote('%Танк%'));
-      // Prepare the query
-      $db->setQuery($query);
-      // Load the row.
-      $result = $db->loadObjectList();
-      // Return the Hello
-      return $result;
-
-	}
-
-	public static function getFighterAjax() {
+	public static function getRoleAjax() {
 		// Obtain a database connection
       $db = JFactory::getDbo();
 	  $axRole = JFactory::getApplication()->input->getString('params');
@@ -69,6 +48,35 @@ class ModHelloWorldHelper
           ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana')))
           ->from($db->quoteName('heros'))
 		  ->where($db->quoteName('role') . 'LIKE' . $db->quote($str));
+      // Prepare the query
+      $db->setQuery($query);
+      // Load the row.
+      $result = $db->loadObjectList();
+      // Return the Hello
+      return $result;
+
+	}
+
+	public static function getSortAjax() {
+		// Obtain a database connection
+      $db = JFactory::getDbo();
+	  $axRole = JFactory::getApplication()->input->getString('params');
+	  $str = '%' . $axRole . '%';
+	  $axSort = JFactory::getApplication()->input->getString('sort');
+
+      // Retrieve the shout
+	  if ($axRole != 'Все'){
+      $query = $db->getQuery(true)
+          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana')))
+          ->from($db->quoteName('heros'))
+		  ->where($db->quoteName('role') . 'LIKE' . $db->quote($str))
+		  ->order($db->quoteName($axSort) . 'DESC');
+	  } else {
+		  $query = $db->getQuery(true)
+          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana')))
+          ->from($db->quoteName('heros'))
+		  ->order($db->quoteName($axSort) . 'DESC');
+	  }
       // Prepare the query
       $db->setQuery($query);
       // Load the row.

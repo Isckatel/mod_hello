@@ -24,10 +24,12 @@ $hello = modHelloWorldHelper::getHello($params);
 require JModuleHelper::getLayoutPath('mod_helloworld');
 ?>
 <script>
+localStorage.setItem('roleFilter', 'Все');
 (function($) {
-    $('a.tanks').on('click', function(event) {
+
+	$('a.filter').on('click', function(event) {
         event.preventDefault();
-        var params = 'Танк'; // Получаем ID пользователя
+        var params = $(this).data('role'); // Получаем ID пользователя
         var target = $('.tabheros'); // Устанавливаем контейнер для вывода данных
  //module=helloworld&format=raw&method=getTanks'>Танки
         // Формируем параметры запроса
@@ -35,7 +37,7 @@ require JModuleHelper::getLayoutPath('mod_helloworld');
             'option': 'com_ajax', // Используем AJAX интерфейс
             'module': 'helloworld', // Название модуля без mod_
             'format': 'json', // Формат возвращаемых данных
-			'method': 'getTank', //Название метода
+			'method': 'getRole', //Название метода
             'params': params // ID пользователя
         };
 
@@ -47,9 +49,10 @@ require JModuleHelper::getLayoutPath('mod_helloworld');
             .done(function(response) {
                 // Есть успешный ответ сервера и данные
                 if (response.success && response.data) {
+					localStorage.setItem('roleFilter', params);
                     // Собираем список материалов
 					target.empty();
-					var result ='<tr><th>№</th><th>Имя</th><th>Роль</th><th>Здоровье</th><th>Мана</th><th>Атака</th><th>Скор. атаки</th><th>Скор. движ.</th><th>Физ. защита</th><th>Маг. защита</th><th>Восст. здоровья</th><th>Восст. маны</th></tr>'
+					var result ="<table class='tabheros'><tr><th>№</th><th>Имя</th><th>Роль</th>	<th><a class='sort' href='#' data-sort='health'>Здоровье</a></th><th><a class='sort' href='#' data-sort='health'>Мана</a></th><th><a class='sort' href='#' data-sort='attack'>Атака</a></th><th><a class='sort' href='#' data-sort='attackSpeed'>Скор. атаки</a></th><th><a class='sort' href='#' data-sort='speed'>Скор. движ.</a></th><th><a class='sort' href='#' data-sort='physicalProtection'>Физ. защита</a></th><th><a class='sort' href='#' data-sort='magicProtection'>Маг. защита</a></th><th><a class='sort' href='#' data-sort='recovery'>Восст. здоровья</a></th><th><a class='sort' href='#' data-sort='recoveryMana'>Восст. маны</a></th></tr>"
 					$.each (response.data, function(index, value) {
 						result += '<tr> <td>' + (index + 1) + '</td>'
 						+'<td>' + value.name + '</td>'
@@ -66,14 +69,7 @@ require JModuleHelper::getLayoutPath('mod_helloworld');
 						+'</tr>';
                     });
 					target.html(result);
-                    /*var result = '<ul>';
-                    $.each (response.data, function(index, value) {
-                        result += '<li>' + value.title + '</li>';
-                    });
-                    result += '</ul>';
 
-                    // Заполняем контейнер списком материалов
-                    target.html(result).fadeIn(); */
                 }
 
                 // Есть успешный ответ сервера, но нет данных.
@@ -97,18 +93,20 @@ require JModuleHelper::getLayoutPath('mod_helloworld');
             });
     });
 
-	$('a.filter').on('click', function(event) {
+	$('.tabheros').delegate('a.sort','click', function(event) {
         event.preventDefault();
-        var params = $(this).data('role'); // Получаем ID пользователя
+        var params = localStorage.getItem('roleFilter'); // Получаем роль
+		let sort = $(this).data('sort'); // Получаем поле для сортировки
         var target = $('.tabheros'); // Устанавливаем контейнер для вывода данных
- //module=helloworld&format=raw&method=getTanks'>Танки
+
         // Формируем параметры запроса
         var request = {
             'option': 'com_ajax', // Используем AJAX интерфейс
             'module': 'helloworld', // Название модуля без mod_
             'format': 'json', // Формат возвращаемых данных
-			'method': 'getFighter', //Название метода
-            'params': params // ID пользователя
+			'method': 'getSort', //Название метода
+            'params': params, // ID пользователя
+			'sort': sort, // ID пользователя
         };
 
         // Посылаем AJAX запрос
@@ -119,9 +117,10 @@ require JModuleHelper::getLayoutPath('mod_helloworld');
             .done(function(response) {
                 // Есть успешный ответ сервера и данные
                 if (response.success && response.data) {
+					localStorage.setItem('roleFilter', params);
                     // Собираем список материалов
 					target.empty();
-					var result ='<tr><th>№</th><th>Имя</th><th>Роль</th><th>Здоровье</th><th>Мана</th><th>Атака</th><th>Скор. атаки</th><th>Скор. движ.</th><th>Физ. защита</th><th>Маг. защита</th><th>Восст. здоровья</th><th>Восст. маны</th></tr>'
+					var result ="<table class='tabheros'><tr><th>№</th><th>Имя</th><th>Роль</th>	<th><a class='sort' href='#' data-sort='health'>Здоровье</a></th><th><a class='sort' href='#' data-sort='health'>Мана</a></th><th><a class='sort' href='#' data-sort='attack'>Атака</a></th><th><a class='sort' href='#' data-sort='attackSpeed'>Скор. атаки</a></th><th><a class='sort' href='#' data-sort='speed'>Скор. движ.</a></th><th><a class='sort' href='#' data-sort='physicalProtection'>Физ. защита</a></th><th><a class='sort' href='#' data-sort='magicProtection'>Маг. защита</a></th><th><a class='sort' href='#' data-sort='recovery'>Восст. здоровья</a></th><th><a class='sort' href='#' data-sort='recoveryMana'>Восст. маны</a></th></tr>"
 					$.each (response.data, function(index, value) {
 						result += '<tr> <td>' + (index + 1) + '</td>'
 						+'<td>' + value.name + '</td>'
