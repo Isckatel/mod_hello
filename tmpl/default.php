@@ -74,7 +74,13 @@ if($hello){
 		$np = $i + 1;
         echo "<tr>";
 			echo "<td>$np</td>";
-            for ($j = 0 ; $j < $n ; ++$j) echo "<td>$row[$j]</td>";
+            for ($j = 0 ; $j < $n ; ++$j) { 
+				if ($j!=0) {
+					echo "<td>$row[$j]</td>";
+				} else {
+					echo "<td><a href='http://heroml/index.php/geroj?hero=$row[$j]'>$row[$j]</a></td>";
+				}
+			}
         echo "</tr>";
     }
     echo "</table>";

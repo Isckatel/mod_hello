@@ -55,7 +55,7 @@ localStorage.setItem('roleFilter', 'Все');
 					var result ="<table class='tabheros'><tr><th>№</th><th>Имя</th><th>Роль</th>	<th><a class='sort' href='#' data-sort='health'>Здоровье</a></th><th><a class='sort' href='#' data-sort='health'>Мана</a></th><th><a class='sort' href='#' data-sort='attack'>Атака</a></th><th><a class='sort' href='#' data-sort='attackSpeed'>Скор. атаки</a></th><th><a class='sort' href='#' data-sort='speed'>Скор. движ.</a></th><th><a class='sort' href='#' data-sort='physicalProtection'>Физ. защита</a></th><th><a class='sort' href='#' data-sort='magicProtection'>Маг. защита</a></th><th><a class='sort' href='#' data-sort='recovery'>Восст. здоровья</a></th><th><a class='sort' href='#' data-sort='recoveryMana'>Восст. маны</a></th></tr>"
 					$.each (response.data, function(index, value) {
 						result += '<tr> <td>' + (index + 1) + '</td>'
-						+'<td>' + value.name + '</td>'
+						+'<td><a href="http://heroml/index.php/geroj?hero=' + value.name +'">' + value.name + '</a></td>'
 						+'<td>' + value.role + '</td>'
 						+'<td>'+ value.health+'</td>'
 						+'<td>'+ value.mana+'</td>'
@@ -123,7 +123,7 @@ localStorage.setItem('roleFilter', 'Все');
 					var result ="<table class='tabheros'><tr><th>№</th><th>Имя</th><th>Роль</th>	<th><a class='sort' href='#' data-sort='health'>Здоровье</a></th><th><a class='sort' href='#' data-sort='health'>Мана</a></th><th><a class='sort' href='#' data-sort='attack'>Атака</a></th><th><a class='sort' href='#' data-sort='attackSpeed'>Скор. атаки</a></th><th><a class='sort' href='#' data-sort='speed'>Скор. движ.</a></th><th><a class='sort' href='#' data-sort='physicalProtection'>Физ. защита</a></th><th><a class='sort' href='#' data-sort='magicProtection'>Маг. защита</a></th><th><a class='sort' href='#' data-sort='recovery'>Восст. здоровья</a></th><th><a class='sort' href='#' data-sort='recoveryMana'>Восст. маны</a></th></tr>"
 					$.each (response.data, function(index, value) {
 						result += '<tr> <td>' + (index + 1) + '</td>'
-						+'<td>' + value.name + '</td>'
+						+'<td><a href="http://heroml/index.php/geroj?hero=' + value.name +'">' + value.name + '</a></td>'
 						+'<td>' + value.role + '</td>'
 						+'<td>'+ value.health+'</td>'
 						+'<td>'+ value.mana+'</td>'
@@ -135,7 +135,7 @@ localStorage.setItem('roleFilter', 'Все');
 						+'<td>'+ value.recovery+'</td>'
 						+'<td>'+ value.recoveryMana+'</td>'
 						+'</tr>';
-                    });
+                    });						
 					target.html(result);
 
                 }
