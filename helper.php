@@ -27,7 +27,7 @@ class ModHelloWorldHelper
 	  JLog::add('Моё сообщение', JLog::ERROR, 'my-error-category');
       // Retrieve the shout
       $query = $db->getQuery(true)
-          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana')))
+          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana','battlePoints')))
           ->from($db->quoteName('heros'));
       // Prepare the query
       $db->setQuery($query);
@@ -45,7 +45,7 @@ class ModHelloWorldHelper
 	  JLog::add('Параметр' . $axRole, JLog::ERROR, 'my-error-category');
       // Retrieve the shout
       $query = $db->getQuery(true)
-          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana')))
+          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana','battlePoints')))
           ->from($db->quoteName('heros'))
 		  ->where($db->quoteName('role') . 'LIKE' . $db->quote($str));
       // Prepare the query
@@ -67,13 +67,14 @@ class ModHelloWorldHelper
       // Retrieve the shout
 	  if ($axRole != 'Все'){
       $query = $db->getQuery(true)
-          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana')))
+          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana','battlePoints')))
           ->from($db->quoteName('heros'))
 		  ->where($db->quoteName('role') . 'LIKE' . $db->quote($str))
 		  ->order($db->quoteName($axSort) . 'DESC');
+	  //запрос по роли
 	  } else {
 		  $query = $db->getQuery(true)
-          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana')))
+          ->select($db->quoteName(array('name','role','health','mana','attack','attackSpeed','speed','physicalProtection','magicProtection','recovery','recoveryMana','battlePoints')))
           ->from($db->quoteName('heros'))
 		  ->order($db->quoteName($axSort) . 'DESC');
 	  }

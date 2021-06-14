@@ -5,7 +5,7 @@ defined('_JEXEC') or die; ?>
 <?php
 //переменнаяя hello находится в области видимости mod_helloworld.php
 if($hello){
-	echo "<b>Фильтр по типам:</b> <a class='filter' data-role='Боец' href='#'>Бойцы</a>
+	echo "<b>Фильтр по ролям:</b> <a class='filter' data-role='Боец' href='#'>Бойцы</a>
 		  <a class='filter' data-role='Стрелок' href='#'>Стрелки</a>
 		  <a class='filter' data-role='Убийца' href='#'>Убийцы</a>
 		  <a class='filter' data-role='Танк' href='#'>Танки</a>
@@ -19,14 +19,14 @@ if($hello){
 		color: #fff; /* цвет текста */
 		text-decoration: none; /* убирать подчёркивание у ссылок */
 		user-select: none; /* убирать выделение текста */
-		background: rgb(212,75,56); /* фон кнопки */
+		background: #283651; /* фон кнопки */
 		border-radius: 5px;
 		margin-right: 10px;
 		padding: .7em 1.5em; /* отступ от текста */
 		outline: none; /* убирать контур в Mozilla */
 	  }
-	  a.filter:hover { background: rgb(232,95,76); } /* при наведении курсора мышки */
-	  a.filter:active { background: rgb(152,15,0); } /* при нажатии */
+	  a.filter:hover { background: #354b72; }
+	  a.filter:active { background: #354b72; } /* при нажатии */
 
 
 	  .tabheros {
@@ -66,7 +66,8 @@ if($hello){
 	<th><a class='sort' href='#' data-sort='physicalProtection'>Физ. защита</a></th>
 	<th><a class='sort' href='#' data-sort='magicProtection'>Маг. защита</a></th>
 	<th><a class='sort' href='#' data-sort='recovery'>Восст. здоровья</a></th>
-	<th><a class='sort' href='#' data-sort='recoveryMana'>Восст. маны</a></th></tr>";
+	<th><a class='sort' href='#' data-sort='recoveryMana'>Восст. маны</a></th>
+	<th><a class='sort' href='#' data-sort='recoveryMana'>БО</a></th></tr>";
     for ($i = 0 ; $i < $rows ; ++$i)
     {
         $row = $hello[$i];
@@ -74,7 +75,7 @@ if($hello){
 		$np = $i + 1;
         echo "<tr>";
 			echo "<td>$np</td>";
-            for ($j = 0 ; $j < $n ; ++$j) { 
+            for ($j = 0 ; $j < $n ; ++$j) {
 				if ($j!=0) {
 					echo "<td>$row[$j]</td>";
 				} else {

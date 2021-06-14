@@ -26,7 +26,7 @@ require JModuleHelper::getLayoutPath('mod_helloworld');
 <script>
 localStorage.setItem('roleFilter', 'Все');
 (function($) {
-
+   
 	$('a.filter').on('click', function(event) {
         event.preventDefault();
         var params = $(this).data('role'); // Получаем ID пользователя
@@ -52,7 +52,7 @@ localStorage.setItem('roleFilter', 'Все');
 					localStorage.setItem('roleFilter', params);
                     // Собираем список материалов
 					target.empty();
-					var result ="<table class='tabheros'><tr><th>№</th><th>Имя</th><th>Роль</th>	<th><a class='sort' href='#' data-sort='health'>Здоровье</a></th><th><a class='sort' href='#' data-sort='health'>Мана</a></th><th><a class='sort' href='#' data-sort='attack'>Атака</a></th><th><a class='sort' href='#' data-sort='attackSpeed'>Скор. атаки</a></th><th><a class='sort' href='#' data-sort='speed'>Скор. движ.</a></th><th><a class='sort' href='#' data-sort='physicalProtection'>Физ. защита</a></th><th><a class='sort' href='#' data-sort='magicProtection'>Маг. защита</a></th><th><a class='sort' href='#' data-sort='recovery'>Восст. здоровья</a></th><th><a class='sort' href='#' data-sort='recoveryMana'>Восст. маны</a></th></tr>"
+					var result ="<table class='tabheros'><tr><th>№</th><th>Имя</th><th>Роль</th>	<th><a class='sort' href='#' data-sort='health'>Здоровье</a></th><th><a class='sort' href='#' data-sort='health'>Мана</a></th><th><a class='sort' href='#' data-sort='attack'>Атака</a></th><th><a class='sort' href='#' data-sort='attackSpeed'>Скор. атаки</a></th><th><a class='sort' href='#' data-sort='speed'>Скор. движ.</a></th><th><a class='sort' href='#' data-sort='physicalProtection'>Физ. защита</a></th><th><a class='sort' href='#' data-sort='magicProtection'>Маг. защита</a></th><th><a class='sort' href='#' data-sort='recovery'>Восст. здоровья</a></th><th><a class='sort' href='#' data-sort='recoveryMana'>Восст. маны</a></th><th><a class='sort' href='#' data-sort='battlePoints'>БО</a></th></tr>"
 					$.each (response.data, function(index, value) {
 						result += '<tr> <td>' + (index + 1) + '</td>'
 						+'<td><a href="http://heroml/index.php/geroj?hero=' + value.name +'">' + value.name + '</a></td>'
@@ -66,6 +66,7 @@ localStorage.setItem('roleFilter', 'Все');
 						+'<td>'+ value.magicProtection+'</td>'
 						+'<td>'+ value.recovery+'</td>'
 						+'<td>'+ value.recoveryMana+'</td>'
+						+'<td>'+ value.battlePoints+'</td>'
 						+'</tr>';
                     });
 					target.html(result);
@@ -120,7 +121,7 @@ localStorage.setItem('roleFilter', 'Все');
 					localStorage.setItem('roleFilter', params);
                     // Собираем список материалов
 					target.empty();
-					var result ="<table class='tabheros'><tr><th>№</th><th>Имя</th><th>Роль</th>	<th><a class='sort' href='#' data-sort='health'>Здоровье</a></th><th><a class='sort' href='#' data-sort='health'>Мана</a></th><th><a class='sort' href='#' data-sort='attack'>Атака</a></th><th><a class='sort' href='#' data-sort='attackSpeed'>Скор. атаки</a></th><th><a class='sort' href='#' data-sort='speed'>Скор. движ.</a></th><th><a class='sort' href='#' data-sort='physicalProtection'>Физ. защита</a></th><th><a class='sort' href='#' data-sort='magicProtection'>Маг. защита</a></th><th><a class='sort' href='#' data-sort='recovery'>Восст. здоровья</a></th><th><a class='sort' href='#' data-sort='recoveryMana'>Восст. маны</a></th></tr>"
+					var result ="<table class='tabheros'><tr><th>№</th><th>Имя</th><th>Роль</th>	<th><a class='sort' href='#' data-sort='health'>Здоровье</a></th><th><a class='sort' href='#' data-sort='health'>Мана</a></th><th><a class='sort' href='#' data-sort='attack'>Атака</a></th><th><a class='sort' href='#' data-sort='attackSpeed'>Скор. атаки</a></th><th><a class='sort' href='#' data-sort='speed'>Скор. движ.</a></th><th><a class='sort' href='#' data-sort='physicalProtection'>Физ. защита</a></th><th><a class='sort' href='#' data-sort='magicProtection'>Маг. защита</a></th><th><a class='sort' href='#' data-sort='recovery'>Восст. здоровья</a></th><th><a class='sort' href='#' data-sort='recoveryMana'>Восст. маны</a></th><th><a class='sort' href='#' data-sort='battlePoints'>БО</a></th></tr>"
 					$.each (response.data, function(index, value) {
 						result += '<tr> <td>' + (index + 1) + '</td>'
 						+'<td><a href="http://heroml/index.php/geroj?hero=' + value.name +'">' + value.name + '</a></td>'
@@ -134,8 +135,9 @@ localStorage.setItem('roleFilter', 'Все');
 						+'<td>'+ value.magicProtection+'</td>'
 						+'<td>'+ value.recovery+'</td>'
 						+'<td>'+ value.recoveryMana+'</td>'
+						+'<td>'+ value.battlePoints+'</td>'
 						+'</tr>';
-                    });						
+                    });
 					target.html(result);
 
                 }
