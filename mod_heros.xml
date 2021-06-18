@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+    <name>Таблица Героев</name>
+    <author>Иван Егошин</author>
+    <version>0.5.0</version>
+    <description>Модуль выводит информацию о героях в табличном виде</description>
+    <files>
+        <filename>mod_heros.xml</filename>
+        <filename module="mod_heros">mod_heros.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+    </files>
+    <config>
+    </config>
+</extension>

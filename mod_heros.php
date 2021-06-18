@@ -20,22 +20,22 @@ defined('_JEXEC') or die;
 require_once dirname(__FILE__) . '/helper.php';
 
 //вызывается Метод вспомогательного класса
-$hello = modHelloWorldHelper::getHello($params);
-require JModuleHelper::getLayoutPath('mod_helloworld');
+$hello = ModHerosHelper::getHello($params);
+require JModuleHelper::getLayoutPath('mod_heros');
 ?>
 <script>
 localStorage.setItem('roleFilter', 'Все');
 (function($) {
-   
+
 	$('a.filter').on('click', function(event) {
         event.preventDefault();
-        var params = $(this).data('role'); // Получаем ID пользователя
+        var params = $(this).data('role'); // Получаем роль героя
         var target = $('.tabheros'); // Устанавливаем контейнер для вывода данных
  //module=helloworld&format=raw&method=getTanks'>Танки
         // Формируем параметры запроса
         var request = {
             'option': 'com_ajax', // Используем AJAX интерфейс
-            'module': 'helloworld', // Название модуля без mod_
+            'module': 'heros', // Название модуля без mod_
             'format': 'json', // Формат возвращаемых данных
 			'method': 'getRole', //Название метода
             'params': params // ID пользователя
